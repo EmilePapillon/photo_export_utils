@@ -73,6 +73,22 @@ Example:
 python rename.py ~/Pictures/import -r --prefix camera --dry-run
 ```
 
+### login_save.py + download_photos.py
+Download Facebook photos/videos you were tagged in (files not included in the standard Facebook data export).
+- First, save your login session so Playwright can reuse cookies:
+  ```bash
+  python login_save.py --out storage_state.json --no-headless
+  ```
+  - Playwright needs a browser engine installed once per machine: `python -m playwright install chromium`.
+- Then run the downloader from the root of your Facebook export (the folder containing `your_facebook_activity/`):
+  ```bash
+  python download_photos.py \
+    --root ~/Downloads/facebook-export \
+    --state-file storage_state.json \
+    --output-dir downloaded_tagged
+  ```
+- The script defaults to reading `your_facebook_activity/activity_youre_tagged_in/photos_and_videos_you're_tagged_in.json` relative to `--root` and writes files into `--output-dir`. Use `--json-path` to override if your export differs.
+
 ## Notes
 - Back up media before writing EXIF data.
 - `exiftool` uses in-place updates; if you prefer backup copies, remove `-overwrite_original` flags in the scripts.
