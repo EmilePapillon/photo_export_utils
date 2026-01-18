@@ -1,1 +1,4 @@
 .DS_Store
+**/.venv
+**/.set_delta_index
+search_for_matches/set_delta_out
